@@ -1,0 +1,25 @@
+*, html {
+    margin: 0;
+	padding: 0;
+	border: 0;
+	font-size: 100%;
+	font: inherit;
+	vertical-align: baseline;
+}
+body {
+    display: flex;
+    justify-content: center;
+    height: 100vh;
+}
+#canvas {
+    width: 50vw;
+    height: 80vh;
+    border: 1px solid black;
+    align-self: center;
+    background-color: black;
+}
+img {
+    border: 1px solid red;
+    width: 100px;
+    height: 100px;
+}
