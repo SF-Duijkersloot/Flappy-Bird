@@ -7,7 +7,7 @@ function Bird() {
     this.velocity = 0;
   
     this.show = function() {
-      var canvas = document.getElementById("defaultCanvas0");
+      var canvas = document.querySelector('canvas');
       var ctx = canvas.getContext("2d");
       ctx.fillStyle = "white";
       ctx.beginPath();
