@@ -1,45 +1,47 @@
-var bird;
-var pipes = [];
-var score = 0;
+let bird;
+let pipes = [];
 
 function setup() {
-  createCanvas(640, 480);
+  const canvas = document.createElement("canvas");
+  canvas.width = 640;
+  canvas.height = 480;
+  document.body.appendChild(canvas);
+
   bird = new Bird();
   pipes.push(new Pipe());
 }
 
 function draw() {
-  background(0);
+  const canvas = document.querySelector("canvas");
+  const ctx = canvas.getContext("2d");
+  ctx.fillStyle = "#000";
+  ctx.fillRect(0, 0, canvas.width, canvas.height);
 
-  for (var i = pipes.length - 1; i >= 0; i--) {
-    pipes[i].show();
+  for (let i = pipes.length - 1; i >= 0; i--) {
+    pipes[i].show(ctx);
     pipes[i].update();
 
     if (pipes[i].hits(bird)) {
       console.log("HIT");
-      score = 0;
     }
 
     if (pipes[i].offscreen()) {
       pipes.splice(i, 1);
-      score++;
     }
   }
 
   bird.update();
-  bird.show();
-
-  fill(255);
-  textSize(32);
-  text("Score: " + score, 10, 30);
+  bird.show(ctx);
 
   if (frameCount % 75 == 0) {
     pipes.push(new Pipe());
   }
 }
 
-function keyPressed() {
-  if (key == " ") {
+function keyDownHandler(event) {
+  if (event.key === " ") {
     bird.up();
   }
 }
+
+document.addEventListener("keydown", keyDownHandler);
