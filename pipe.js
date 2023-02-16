@@ -1,15 +1,15 @@
 function Pipe() {
   this.spacing = 175;
-  this.top = random(height / 6, 3 / 4 * height);
-  this.bottom = height - (this.top + this.spacing);
-  this.x = width;
+  this.top = Math.random() * (window.innerHeight / 6 - 3 / 4 * window.innerHeight) + 3 / 4 * window.innerHeight;
+  this.bottom = window.innerHeight - (this.top + this.spacing);
+  this.x = window.innerWidth;
   this.w = 80;
   this.speed = 6;
 
   this.highlight = false;
 
   this.hits = function(bird) {
-    if (bird.y < this.top || bird.y > height - this.bottom) {
+    if (bird.y < this.top || bird.y > window.innerHeight - this.bottom) {
       if (bird.x > this.x && bird.x < this.x + this.w) {
         this.highlight = true;
         return true;
@@ -20,12 +20,14 @@ function Pipe() {
   };
 
   this.show = function() {
-    fill(255);
+    const canvas = document.getElementById('canvas');
+    const ctx = canvas.getContext('2d');
+    ctx.fillStyle = 'white';
     if (this.highlight) {
-      fill(255, 0, 0);
+      ctx.fillStyle = 'red';
     }
-    rect(this.x, 0, this.w, this.top);
-    rect(this.x, height - this.bottom, this.w, this.bottom);
+    ctx.fillRect(this.x, 0, this.w, this.top);
+    ctx.fillRect(this.x, window.innerHeight - this.bottom, this.w, this.bottom);
   };
 
   this.update = function() {
